@@ -33,8 +33,8 @@ namespace Lab6NET.Controllers
         // POST: api/Students
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)] // returned when we create a Student successfully
-        [ProducesResponseType(StatusCodes.Status400BadRequest)] // returned when we create a Student successfully
+        [ProducesResponseType(StatusCodes.Status201Created)] // returned when we create a Student successfully (with both id and no id)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)] // returned when we miss a property
         [ProducesResponseType(StatusCodes.Status500InternalServerError)] // returned when there is an error in creating a student
         public async Task<ActionResult<Student>> PostStudent(Student student)
         {
@@ -47,8 +47,7 @@ namespace Lab6NET.Controllers
         // GET: api/Students/5
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)] // returned when we return a specific Student successfully
-        [ProducesResponseType(StatusCodes.Status400BadRequest)] // returned when we return a specific Student successfully
-        [ProducesResponseType(StatusCodes.Status404NotFound)] // returned when we return a specific Student successfully
+        [ProducesResponseType(StatusCodes.Status404NotFound)] // returned if a student doesn't exist in the database
         [ProducesResponseType(StatusCodes.Status500InternalServerError)] // returned when there is an error in processing the request
         public async Task<ActionResult<Student>> GetStudent(Guid id)
         {
@@ -65,9 +64,9 @@ namespace Lab6NET.Controllers
         // PUT: api/Students/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)] // returned when we return list of Students successfully
-        [ProducesResponseType(StatusCodes.Status201Created)] // returned when we return list of Students successfully
-        [ProducesResponseType(StatusCodes.Status400BadRequest)] // returned when we return list of Students successfully
+        [ProducesResponseType(StatusCodes.Status200OK)] // returned when we update student with the id
+        [ProducesResponseType(StatusCodes.Status201Created)] // returned when an id doesn't exist in the db, we create a new student with that id
+        [ProducesResponseType(StatusCodes.Status400BadRequest)] // returned when update or create doesn't work
         [ProducesResponseType(StatusCodes.Status500InternalServerError)] // returned when there is an error in processing the request
         public async Task<IActionResult> PutStudent(Guid id, Student student)
         {

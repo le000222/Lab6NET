@@ -44,6 +44,7 @@ namespace Lab6NET
             app.UseSwagger();
 
             app.UseSwaggerUI();
+
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Students API V1");
