@@ -70,6 +70,7 @@ namespace Lab6NET.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)] // returned when there is an error in processing the request
         public async Task<IActionResult> PutStudent(Guid id, Student student)
         {
+            
             student.Id = id;
             _context.Entry(student).State = EntityState.Modified;
 
@@ -80,16 +81,13 @@ namespace Lab6NET.Controllers
 
                 return CreatedAtAction("GetStudent", new { id = student.Id }, student);
             }
-            else
+            try
             {
-                try
-                {
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    return BadRequest();
-                }
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return BadRequest();
             }
 
             return Ok(student);
